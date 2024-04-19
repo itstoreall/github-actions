@@ -37,24 +37,3 @@ jobs:
           pip install openai
           python upload_to_openai.py
         shell: /usr/bin/bash -e {0}
-
-      # - name: Send to OpenAI
-      #   env:
-      #     OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-      #   run: |
-      #     pip install openai
-      #     openai.api_key = "$OPENAI_API_KEY"
-      #     build_dir="build"
-      #     for file in $build_dir/*; do
-      #       if [ -f "$file" ]; then
-      #         openai.File.create(
-      #           file=open("$file", "rb"),
-      #           purpose="code_review"
-      #         )
-      #         echo "Uploaded file: $file"
-      #       fi
-      #     done
-# openai.File.create(
-#   file=open("build/index.html", "rb"),
-#   purpose="code_review"
-# )
