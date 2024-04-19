@@ -35,7 +35,7 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
           pip install openai
-          python /home/runner/work/github-actions/github-actions/upload_to_openai.py
+          python upload_to_openai.py
         shell: /usr/bin/bash -e {0}
 
       # - name: Send to OpenAI
