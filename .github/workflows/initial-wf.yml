@@ -34,6 +34,6 @@ jobs:
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
-          pip install openai
-          python upload_to_openai.py
+          npm install node-fetch form-data
+          node upload_to_openai.js
         shell: /usr/bin/bash -e {0}
