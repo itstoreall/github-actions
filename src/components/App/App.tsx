@@ -3,7 +3,7 @@ import './App.css';
 const App = () => {
   console.log('App');
 
-  return <div className='App'>Github Actions 16</div>;
+  return <div className='App'>Github Actions 17</div>;
 };
 
 export default App;
