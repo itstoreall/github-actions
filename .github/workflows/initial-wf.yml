@@ -29,11 +29,11 @@ jobs:
       - name: Print build-files
         run: |
           echo "Contents of build-files artifact:"
-          ls -l
+          ls -l build-files
+      - name: Install dependencies for script
+        run: npm ci
       - name: Send to OpenAI
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: |
-          npm install node-fetch form-data
-          node upload_to_openai.js
+        run: node upload_to_openai.js
         shell: /usr/bin/bash -e {0}
