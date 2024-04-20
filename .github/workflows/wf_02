@@ -1,6 +1,7 @@
 name: WF2
-pull_request:
-  types: [opened, edited, reopened]
+on:
+  pull_request:
+    types: [opened, edited, reopened]
 jobs:
   lint:
     runs-on: ubuntu-latest
