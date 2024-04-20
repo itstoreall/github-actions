@@ -71,7 +71,7 @@ jobs:
       #   with:
       #     name: build-files
       - name: Send build-files to GPT for Review
-        run: node sendToGPTForReview.js
+        run: node codeReviewHandler.js
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       - name: Print Review Done!

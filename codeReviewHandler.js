@@ -1,4 +1,5 @@
 const axios = require('axios');
+const sendToGPTForReview = require('./sendToGPTForReview');
 
 const codeReviewHandler = async () => {
   // ------ Date
@@ -15,7 +16,7 @@ const codeReviewHandler = async () => {
 
   console.log(`codeReviewHandler date: ${dateUkraine}`);
 
-  // ------ Weather
+  // ------ Mock Data
 
   const apiUrl = `https://jsonplaceholder.typicode.com/todos/1`;
 
@@ -25,6 +26,8 @@ const codeReviewHandler = async () => {
   } catch (error) {
     console.error('Failed:', error);
   }
+
+  sendToGPTForReview();
 };
 
 codeReviewHandler();
