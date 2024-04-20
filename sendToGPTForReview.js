@@ -33,7 +33,8 @@ module.exports = async function sendToGPTForReview() {
           messages: [
             {
               role: 'system',
-              content: `Review the following code:\n\n${fileContent}`
+              content: `Yo, man!`
+              // content: `Review the following code:\n\n${fileContent}`
             }
           ]
         })
