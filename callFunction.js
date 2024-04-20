@@ -1,1 +1,3 @@
-console.log('callFunction called from the terminal!');
+const currentDate = new Date().toLocaleDateString();
+
+console.log(`callFunction date: ${currentDate}`);
