@@ -30,6 +30,7 @@ jobs:
         run: |
           echo "Contents of build-files artifact:"
           ls -l
+      #   continue-on-error: true
       # - name: Cache deps
       #   uses: actions/cache@v4
       #   with:
@@ -39,6 +40,8 @@ jobs:
       #   run: npm ci
       - name: Print Init Done
         run: echo Init Done!!!
+      - name: Run callFunction
+        run: node callFunction.js
       # - name: Send to OpenAI
       #   env:
       #     OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
