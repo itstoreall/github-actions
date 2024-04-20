@@ -1,4 +1,4 @@
-// const fs = require('fs');
+const fs = require('fs');
 const { OpenAI } = require('openai');
 
 module.exports = function sendToGPTForReview() {
@@ -10,8 +10,7 @@ module.exports = function sendToGPTForReview() {
     dangerouslyAllowBrowser: true
   });
 
-  // console.log('ai --->', ai);
-
+  /*
   ai.chat.completions
     .create({
       model: 'gpt-4-turbo-preview',
@@ -30,6 +29,29 @@ module.exports = function sendToGPTForReview() {
     .catch(error => {
       console.error('Error calling OpenAI API:', error);
     });
+    // */
+
+  const filePath = './build-files';
+
+  console.log('filePath --->', filePath);
+
+  fs.readFile(filePath, 'utf8', (err, fileContent) => {
+    if (err) return console.error('Error reading file:', err);
+
+    console.log('fileContent =======>', fileContent);
+
+    ai.chat.completions
+      .create({
+        model: 'gpt-4-turbo-preview',
+        messages: [{ role: 'system', content: 'Hi!' }]
+      })
+      .then(response => {
+        console.log('Response:', response.choices[0].message.content);
+      })
+      .catch(error => {
+        console.error('Error calling OpenAI API:', error);
+      });
+  });
 };
 
 // const configuration = new Configuration({ apiKey: process.env.OPENAI_API_KEY });
