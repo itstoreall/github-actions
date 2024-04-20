@@ -1,7 +1,38 @@
+// import fs from 'fs';
 import axios from 'axios';
+// import * as openai from 'openai';
+import OpenAI from 'openai';
+// import Configuration from 'openai';
+
+const review = () => {
+  const ai = new OpenAI({
+    apiKey: process.env.REACT_APP_OPENAI_API_KEY,
+    dangerouslyAllowBrowser: true
+  });
+
+  ai.chat.completions
+    .create({
+      model: 'gpt-4-turbo-preview',
+      messages: [{ role: 'system', content: 'Hi!' }]
+      // prompt: `Review the following code:\n\n${fileContent}`,
+      // temperature: 0.7,
+      // max_tokens: 1024,
+      // n: 1,
+      // stop: null
+      // frequency_penalty: 0,
+      // presence_penalty: 0
+    })
+    .then(response => {
+      console.log('Response:', response.choices[0].message.content);
+    })
+    .catch(error => {
+      console.error('Error calling OpenAI API:', error);
+    });
+  // */
+};
 
 export const codeReviewHandler = async () => {
-  // ------ Date
+  // ------ Date:
 
   const dateUkraine = new Intl.DateTimeFormat('en-US', {
     year: 'numeric',
@@ -15,7 +46,7 @@ export const codeReviewHandler = async () => {
 
   console.log(`codeReviewHandler date: ${dateUkraine}`);
 
-  // ------ Weather
+  // ------ Mock Data:
 
   const apiUrl = `https://jsonplaceholder.typicode.com/todos/1`;
 
@@ -25,6 +56,10 @@ export const codeReviewHandler = async () => {
   } catch (error) {
     console.error('Failed:', error);
   }
+
+  // ------ Code review:
+
+  review();
 };
 
 codeReviewHandler();
