@@ -5,7 +5,7 @@ const App = () => {
   console.log('App');
   // console.log('App', codeReviewHandler());
 
-  return <div className='App'>Github Actions 37</div>;
+  return <div className='App'>Github Actions 38</div>;
 };
 
 export default App;
