@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const codeReviewHandler = async () => {
+const codeReviewHandler = async () => {
   // ------ Date
 
   const dateUkraine = new Intl.DateTimeFormat('en-US', {
