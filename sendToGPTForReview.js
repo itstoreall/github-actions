@@ -1,17 +1,29 @@
 // const fs = require('fs');
 const { OpenAI } = require('openai');
 
+module.exports = function sendToGPTForReview() {
+  console.log('OPENAI_API_KEY --->', process.env.OPENAI_API_KEY);
+  console.log('OpenAI --->', OpenAI);
+
+  const ai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+    dangerouslyAllowBrowser: true
+  });
+
+  console.log('ai --->', ai);
+};
+
 // const configuration = new Configuration({ apiKey: process.env.OPENAI_API_KEY });
 
-console.log('OPENAI_API_KEY --->', process.env.OPENAI_API_KEY);
-console.log('OpenAI --->', OpenAI);
+// console.log('OPENAI_API_KEY --->', process.env.OPENAI_API_KEY);
+// console.log('OpenAI --->', OpenAI);
 
-const ai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-  dangerouslyAllowBrowser: true
-});
+// const ai = new OpenAI({
+//   apiKey: process.env.OPENAI_API_KEY,
+//   dangerouslyAllowBrowser: true
+// });
 
-console.log('ai --->', ai);
+// console.log('ai --->', ai);
 
 // const openai = new OpenAIApi(configuration);
 // const filePath = './build-files';
