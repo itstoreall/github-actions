@@ -36,9 +36,14 @@ jobs:
           key: node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
         run: npm ci
-
       # - name: Build app
       #   run: npm run build
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          path: build
+          name: build-files
+
       - name: Print Build Done!
         run: |
           echo Build
@@ -57,8 +62,14 @@ jobs:
           key: node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
         run: npm ci
+      - name: Download Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-files
       - name: Print Review Done!
         run: |
+          echo "Contents of build-files artifact:"
+          ls -l
           echo Review
           echo Done!
 
