@@ -6,33 +6,36 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Get repo code
-        uses: actions/checkout@v4
-      - name: Install dependencies
-        run: npm ci
-      - name: Lint code
-        run: npm run lint
+      - name: Print Lint Done!
+        run: |
+          echo Lint
+          echo Done!
+      # - name: Get repo code
+      #   uses: actions/checkout@v4
+      # - name: Install dependencies
+      #   run: npm ci
+      # - name: Lint code
+      #   run: npm run lint
   build:
-    needs: lint
     runs-on: ubuntu-latest
     steps:
-      - name: Get repo code
-        uses: actions/checkout@v4
-      - name: Install dependencies
-        run: npm ci
-      - name: Build app
-        run: npm run build
-      # - name: Run callFunction
-      #   run: node callFunction.js
-      # - name: Is done?
-      #   run: echo Done!!!
-  test-app:
-    needs: build
+      - name: Print Build Done!
+        run: |
+          echo Build
+          echo Done!
+      # - name: Get repo code
+      #   uses: actions/checkout@v4
+      # - name: Install dependencies
+      #   run: npm ci
+      # - name: Build app
+      #   run: npm run build
+  code-review:
+    needs: [lint, build]
     runs-on: ubuntu-latest
     steps:
       - name: Get repo code
         uses: actions/checkout@v3
       - name: Install dependencies
         run: npm ci
-      - name: Run callFunction
-        run: node callFunction.js
+      - name: Run codeReviewHandler
+        run: node codeReviewHandler.js
