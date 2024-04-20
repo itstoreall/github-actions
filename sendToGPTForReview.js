@@ -2,15 +2,34 @@
 const { OpenAI } = require('openai');
 
 module.exports = function sendToGPTForReview() {
-  console.log('OPENAI_API_KEY --->', process.env.OPENAI_API_KEY);
-  console.log('OpenAI --->', OpenAI);
+  // console.log('OPENAI_API_KEY --->', process.env.OPENAI_API_KEY);
+  // console.log('OpenAI --->', OpenAI);
 
   const ai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
     dangerouslyAllowBrowser: true
   });
 
-  console.log('ai --->', ai);
+  // console.log('ai --->', ai);
+
+  ai.chat.completions
+    .create({
+      model: 'gpt-4-turbo-preview',
+      messages: [{ role: 'system', content: 'Hi!' }]
+      // prompt: `Review the following code:\n\n${fileContent}`,
+      // temperature: 0.7,
+      // max_tokens: 1024,
+      // n: 1,
+      // stop: null
+      // frequency_penalty: 0,
+      // presence_penalty: 0
+    })
+    .then(response => {
+      console.log('Response:', response.choices[0].message.content);
+    })
+    .catch(error => {
+      console.error('Error calling OpenAI API:', error);
+    });
 };
 
 // const configuration = new Configuration({ apiKey: process.env.OPENAI_API_KEY });
