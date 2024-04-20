@@ -30,13 +30,13 @@ jobs:
         run: |
           echo "Contents of build-files artifact:"
           ls -l
-      - name: Cache deps
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: node-modules-${{ hashFiles('**/package-lock.json') }}
-      - name: Install dependencies for script
-        run: npm ci
+      # - name: Cache deps
+      #   uses: actions/cache@v4
+      #   with:
+      #     path: ~/.npm
+      #     key: node-modules-${{ hashFiles('**/package-lock.json') }}
+      # - name: Install dependencies for script
+      #   run: npm ci
       - name: Print Init Done
         run: echo Init Done!!!
       # - name: Send to OpenAI
