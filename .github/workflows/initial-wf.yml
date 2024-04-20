@@ -30,25 +30,17 @@ jobs:
         run: |
           echo "Contents of build-files artifact:"
           ls -l
+      - name: Cache deps
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies for script
         run: npm ci
-      - name: Send to OpenAI
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: node upload_to_openai.js
-        shell: /usr/bin/bash -e {0}
-
-      # - name: Install dependencies and run script
-      #   run: |
-      #     npm install node-fetch form-data
-      #     node upload_to_openai.js
-      #   shell: /usr/bin/bash -e {0}
-      #   env:
-      #     OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      - name: Print Init Done
+        run: echo Init Done!!!
       # - name: Send to OpenAI
       #   env:
       #     OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-      #   run: |
-      #     npm install node-fetch form-data
-      #     node upload_to_openai.js
+      #   run: node upload_to_openai.js
       #   shell: /usr/bin/bash -e {0}
