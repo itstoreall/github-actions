@@ -1,5 +1,5 @@
-const fs = require('fs').promises;
-const path = require('path');
+// const fs = require('fs').promises;
+// const path = require('path');
 const { OpenAI } = require('openai');
 
 module.exports = async function sendToGPTForReview() {
@@ -11,10 +11,10 @@ module.exports = async function sendToGPTForReview() {
     dangerouslyAllowBrowser: true
   });
 
-  const directoryPath = './build-files';
+  // const directoryPath = './build-files';
   // const directoryPath = path.join(__dirname, 'build-files');
 
-  console.log('filePath --->', directoryPath);
+  // console.log('filePath --->', directoryPath);
 
   /*
   try {
@@ -52,7 +52,7 @@ module.exports = async function sendToGPTForReview() {
   }
   // */
 
-  // /*
+  /*
   fs.readFile(directoryPath, 'utf8', (err, fileContent) => {
     if (err) return console.error('Error reading file:', err);
 
@@ -71,20 +71,12 @@ module.exports = async function sendToGPTForReview() {
       });
   });
   // */
-};
 
-/*
+  // /*
   ai.chat.completions
     .create({
       model: 'gpt-4-turbo-preview',
       messages: [{ role: 'system', content: 'Hi!' }]
-      // prompt: `Review the following code:\n\n${fileContent}`,
-      // temperature: 0.7,
-      // max_tokens: 1024,
-      // n: 1,
-      // stop: null
-      // frequency_penalty: 0,
-      // presence_penalty: 0
     })
     .then(response => {
       console.log('Response:', response.choices[0].message.content);
@@ -92,7 +84,8 @@ module.exports = async function sendToGPTForReview() {
     .catch(error => {
       console.error('Error calling OpenAI API:', error);
     });
-    // */
+  // */
+};
 
 // -------------------
 
