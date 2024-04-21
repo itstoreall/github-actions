@@ -1,7 +1,7 @@
 const axios = require('axios');
 const sendToGPTForReview = require('./sendToGPTForReview');
 
-const codeReviewHandler = async directoryPath => {
+export const codeReviewHandler = async directoryPath => {
   console.log(`Reviewing files in directory -> ${directoryPath}`);
 
   // ------ Date
@@ -32,4 +32,4 @@ const codeReviewHandler = async directoryPath => {
   sendToGPTForReview();
 };
 
-codeReviewHandler();
+// codeReviewHandler();
