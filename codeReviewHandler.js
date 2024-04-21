@@ -11,10 +11,10 @@ const sendToGPTForReview = require('./sendToGPTForReview');
 
   try {
     const directoryPath = path.resolve(directoryName);
-    console.log(`Reading directory: ${directoryPath}`);
+    console.log(`Reading directory ------> ${directoryPath}`);
 
-    // const files = await fs.readdir(directoryPath);
-    // console.log(`Contents of ${directoryName}:`, files);
+    const files = await fs.readdir(directoryPath);
+    console.log(`Contents of ${directoryName}:`, files);
   } catch (e) {
     console.error('Error reading directory:', e);
   }
