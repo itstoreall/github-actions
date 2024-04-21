@@ -1,8 +1,8 @@
 const axios = require('axios');
 const sendToGPTForReview = require('./sendToGPTForReview');
 
-(async function codeReviewHandler(args) {
-  console.log(`codeReviewHandler fn!!!`);
+(async function codeReviewHandler() {
+  const args = process.argv.slice(2);
   console.log(`codeReviewHandler args ------>`, args);
 
   // ------ Date
