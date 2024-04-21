@@ -1,7 +1,9 @@
 const axios = require('axios');
 const sendToGPTForReview = require('./sendToGPTForReview');
 
-const codeReviewHandler = async () => {
+const codeReviewHandler = async directoryPath => {
+  console.log(`Reviewing files in directory -> ${directoryPath}`);
+
   // ------ Date
 
   const dateUkraine = new Intl.DateTimeFormat('en-US', {
@@ -14,7 +16,7 @@ const codeReviewHandler = async () => {
     timeZone: 'Europe/Kyiv'
   }).format(new Date());
 
-  console.log(`codeReviewHandler date: ${dateUkraine}`);
+  console.log(`new Date() --------->: ${dateUkraine}`);
 
   // ------ Mock Data
 
@@ -22,7 +24,7 @@ const codeReviewHandler = async () => {
 
   try {
     const response = await axios.get(apiUrl);
-    console.log('------------>', response.data.title);
+    console.log('axios ------------>', response.data.title);
   } catch (error) {
     console.error('Failed:', error);
   }

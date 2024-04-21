@@ -79,7 +79,7 @@ module.exports = async function sendToGPTForReview() {
       messages: [{ role: 'system', content: 'Hi!' }]
     })
     .then(response => {
-      console.log('Response:', response.choices[0].message.content);
+      console.log('ai ---------------->:', response.choices[0].message.content);
     })
     .catch(error => {
       console.error('Error calling OpenAI API:', error);
