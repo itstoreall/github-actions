@@ -1,4 +1,5 @@
 const axios = require('axios');
+const sendToGPTForReview = require('./sendToGPTForReview');
 
 (async function codeReviewHandler(args) {
   console.log(`codeReviewHandler fn!!!`);
@@ -27,7 +28,7 @@ const axios = require('axios');
     console.error('Failed:', error);
   }
 
-  // sendToGPTForReview();
+  sendToGPTForReview();
 })();
 
 // codeReviewHandler();
