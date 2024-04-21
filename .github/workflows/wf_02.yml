@@ -71,8 +71,8 @@ jobs:
           echo "Contents of build-files artifact:"
           ls -l
       - name: Send build-files to GPT for Review
-        run: node codeReviewHandler.js
-        # run: node codeReviewHandler.js build-files
+        # run: node codeReviewHandler.js
+        run: node codeReviewHandler.js build-files
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       - name: Print Review Done!
