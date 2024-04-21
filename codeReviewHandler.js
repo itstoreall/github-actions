@@ -1,7 +1,8 @@
 const axios = require('axios');
 
-async function codeReviewHandler() {
+(async function codeReviewHandler(args) {
   console.log(`codeReviewHandler fn!!!`);
+  console.log(`codeReviewHandler args ------>`, args);
 
   // ------ Date
   const dateUkraine = new Intl.DateTimeFormat('en-US', {
@@ -27,6 +28,6 @@ async function codeReviewHandler() {
   }
 
   // sendToGPTForReview();
-}
+})();
 
-codeReviewHandler();
+// codeReviewHandler();
