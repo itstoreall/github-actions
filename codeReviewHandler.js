@@ -10,7 +10,7 @@ const sendToGPTForReview = require('./sendToGPTForReview');
   const directoryName = args[0];
 
   try {
-    const directoryPath = path.resolve(directoryName);
+    const directoryPath = path.resolve(`/build/${directoryName}`);
     console.log(`Reading directory ------> ${directoryPath}`);
 
     const files = await fs.readdir(directoryPath);
