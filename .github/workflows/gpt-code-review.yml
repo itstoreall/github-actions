@@ -1,0 +1,63 @@
+name: GPT Code Review
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+jobs:
+  code-review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get repo code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: GrantBirki/git-diff-action@v2
+        id: git-diff-action
+        with:
+          json_diff_file_output: diff.json
+          raw_diff_file_output: diff.txt
+          file_output_only: 'true'
+
+      - name: Perform GPT review
+        id: code_review_suggestions
+        run: |
+          changed_code=$(cat ${{ steps.git-diff-action.outputs.raw-diff-path }})
+          echo "PR change: $changed_code"
+          code_changes=$(echo $changed_code | jq -s -R -r @json)
+          prompt="Analyze the given code and suggest improvements. Rate this code on a scale of 1 to 10, where 1 is terrible and 10 is excellent."
+
+          echo "code_changes --->" $code_changes
+
+          response=$(curl https://api.openai.com/v1/chat/completions \
+          -H "Content-Type: application/json" \
+          -H "Authorization: Bearer ${{ secrets.OPENAI_API_KEY }}" \
+          -d "{
+            \"model\": \"gpt-4-turbo-preview\",
+            \"messages\": [
+              { \"role\": \"system\", \"content\": $prompt },
+              { \"role\": \"user\", \"content\": $code_changes }
+            ]
+          }")
+
+          # echo Response $response
+          code_review_suggestions=$(echo "$response" | jq -r '.choices[0].message.content')
+          echo "$code_review_suggestions" > code_suggestions.txt
+
+      - name: Add a comment
+        run: |
+          cat code_suggestions.txt
+          escaped_comments=$(echo "$(cat code_suggestions.txt)" | jq -s -R -r @json)
+          curl -L \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.number }}/comments" \
+            -d "{\"body\": $escaped_comments}"
+
+# ------------------------------------------
+
+# \"Please create a review for these snippets or lines of React code\"
