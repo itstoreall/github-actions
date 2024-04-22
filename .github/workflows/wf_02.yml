@@ -2,6 +2,8 @@ name: WF2
 on:
   pull_request:
     types: [opened, edited, reopened, synchronize]
+    branches:
+      - main
 jobs:
   code-review:
     runs-on: ubuntu-latest
