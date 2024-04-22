@@ -67,7 +67,8 @@ jobs:
           # rating=$(echo "$comment_on_review" | grep -o -P 'Rating: \K[0-9]+(?=/10)')
           # rating=$(echo "$comment_on_review" | grep -o -P 'Rating:')
 
-          echo 'Extracted rating --->' ${comment_on_review:0:13}
+          echo 'Extracted rating 1 --->' $comment_on_review
+          echo 'Extracted rating 2 --->' $comment_on_review:0:13
           # echo 'Extracted rating --->' $rating
 
           # # Conditional check to determine the workflow outcome
