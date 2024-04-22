@@ -1,3 +1,3 @@
 export const app = {
-  title: 'Github Actions 125'
+  title: 'Github Actions 126'
 };
