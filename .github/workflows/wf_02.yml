@@ -25,7 +25,7 @@ jobs:
         run: |
           # Get the code changes
           changed_code=$(cat ${{ steps.git-diff-action.outputs.raw-diff-path }})
-          echo "PR change: $changed_code
+          echo "PR change: $changed_code"
 
 # ------------------------------------------
 
