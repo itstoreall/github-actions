@@ -41,9 +41,9 @@ jobs:
 
           echo Response: $response.choices[0].message.content
 
-          code_review_suggestion=$(echo $response | jq -r .choices[0].message.content)
+          code_review_suggestion=$(echo "$response" | jq -r '.choices[0].message.content')
 
-          echo $code_review_suggestion > code_suggestion.txt
+          echo "$code_review_suggestion" > code_suggestion.txt
 
 # ------------------------------------------
 
