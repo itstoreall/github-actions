@@ -17,7 +17,7 @@ jobs:
       - uses: GrantBirki/git-diff-action@v2
         id: git-diff-action
         with:
-          json_diff_file_output: diff.json
+          # json_diff_file_output: diff.json
           raw_diff_file_output: diff.txt
           file_output_only: 'true'
 
@@ -59,7 +59,8 @@ jobs:
             "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.number }}/comments" \
             -d "{\"body\": $comment_on_code_changes}")
 
-          echo "comment ------->" $comment.body
+          comment_on_review=$(echo $comment | jq -s -R -r @json)
+          echo "comment_on_review ------->" $comment_on_review
 
       # - name: Check condition and possibly fail
       #   run: |
