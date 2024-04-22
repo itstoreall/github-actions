@@ -26,6 +26,20 @@ jobs:
           # Get the code changes
           changed_code=$(cat ${{ steps.git-diff-action.outputs.raw-diff-path }})
           echo "PR change: $changed_code"
+          escaped_code=$(echo $"changed_files" | jq -s -R -r @json)
+
+          response=$(curl https://api.openai.com/v1/chat/completions \  
+          -H "Content-Type: application/json" \  
+          -H "Authorization: Bearer ${{ secrets.OPENAI_API_KEY }}" \  
+          -d "{
+            "model": "gpt-4",
+            "messages": [
+              { "role": "system", "content": "Create code review" },
+              { "role": "user", "content": $escaped_code }
+            ]
+          }")
+
+          echo "Response ---> $response"
 
 # ------------------------------------------
 
