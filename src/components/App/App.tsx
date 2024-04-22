@@ -1,23 +1,10 @@
-import { useEffect } from 'react';
 import './App.css';
+import { app } from './config';
 
-const App = () => {
-  const title = 'Github Actions 115';
-
-  useEffect(() => {
-    console.log('App:', title);
-  }, [title]);
-
-  return (
-    <div className='App'>
-      <h1>{title}</h1>
-    </div>
-  );
-};
+const App = () => (
+  <div className='App'>
+    <h1>{app.title}</h1>
+  </div>
+);
 
 export default App;
-
-/*
-import { codeReviewHandler } from './codeReviewHandler';
-console.log('App', codeReviewHandler());
-*/
