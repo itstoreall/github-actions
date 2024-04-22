@@ -5,7 +5,13 @@ const App = () => {
   console.log('App');
   // console.log('App', codeReviewHandler());
 
-  return <div className='App'>Github Actions 106</div>;
+  const title = 'Github Actions 106';
+
+  return (
+    <div className='App'>
+      <h1>{title}</h1>
+    </div>
+  );
 };
 
 export default App;
