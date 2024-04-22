@@ -29,11 +29,11 @@ jobs:
           ls -l
       - name: Print github
         run: |
-          echo Review
-          echo Done!
-          echo '${{ toJSON(github) }}'
+          echo 'github ---> ${{ github.event.pull_request }}''
 
   # ------------------------------------------
+
+  # echo '${{ toJSON(github.event.pull_request) }}'
 
   # - name: Send build-files to GPT for Review
   #   run: node codeReviewHandler.js
