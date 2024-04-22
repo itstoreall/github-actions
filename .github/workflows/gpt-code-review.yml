@@ -60,7 +60,7 @@ jobs:
             -d "{\"body\": $comment_on_code_changes}")
 
           comment_on_review=$(echo "$comment" | jq -r '.body')
-          echo "comment_on_review ------->" $comment_on_review
+          # echo "comment_on_review ------->" $comment_on_review
 
           rating=$(echo "$comment_on_review" | grep -o -P 'Rating: \K[0-9]+(?=/10)')
 
