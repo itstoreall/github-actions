@@ -62,6 +62,22 @@ jobs:
           comment_on_review=$(echo "$comment" | jq -r '.body')
           echo "comment_on_review ------->" $comment_on_review
 
+      - name: Rating result
+        run: |
+          # Extract the rating value
+          rating=$(echo "$comment_on_review" | grep -oP 'Rating: \K[0-9]+(?=/10)')
+          echo "Extracted rating: $rating"
+
+          # Conditional check to determine the workflow outcome
+          if [ "$rating" -le 2 ]; then
+            echo "Rating is $rating/10, which is considered as failure."
+            exit 1
+          elif [ "$rating" -ge 3 ]; then
+            echo "Rating is $rating/10, proceeding with success."
+          else
+            echo "Unexpected rating value, proceeding with caution."
+          fi
+
       # - name: Check condition and possibly fail
       #   run: |
       #     if [[ $CONDITION == 'true' ]]; then
