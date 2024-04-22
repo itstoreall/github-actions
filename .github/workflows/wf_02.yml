@@ -40,21 +40,13 @@ jobs:
           }")
 
           # echo Response $response
-
           code_review_suggestions=$(echo "$response" | jq -r '.choices[0].message.content')
-
-          echo "response.message.content --->" $code_review_suggestions
-
           echo "$code_review_suggestions" > code_suggestions.txt
 
       - name: Add a comment
         run: |
           cat code_suggestions.txt
-
           escaped_comments=$(echo "$(cat code_suggestions.txt)" | jq -s -R -r @json)
-
-          echo 'escaped_comments --->' $escaped_comments
-
           curl -L \
             -X POST \
             -H "Accept: application/vnd.github+json" \
@@ -65,80 +57,3 @@ jobs:
 
 # ------------------------------------------
 
-# curl -L \
-#   -X POST \
-#   -H "Accept: application/vnd.github+json" \
-#   -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-#   -H "X-GitHub-Api-Version: 2022-11-28"
-#   https"//api.github.com/repos/${{ github.repository }}/issues/${{ github.event.number }}
-#   -d "{\"body\": $escaped_comments}"
-
-# response=$(curl -X POST https://api.openai.com/v1/chat/completions \
-# -H "Content-Type: application/json" \
-# -H "Authorization: Bearer ${{ secrets.OPENAI_API_KEY }}"
-# -d @- << EOF
-# {
-#   "model": "gpt-4",
-#   "messages": [
-#     { "role": "system", "content": "Create code review" },
-#     { "role": "user", "content": $escaped_code }
-#   ]
-# }
-# EOF
-# )
-
-# response=$(curl https://api.openai.com/v1/chat/completions \
-# -H "Content-Type: application/json" \
-# -H "Authorization: Bearer ${{ secrets.OPENAI_API_KEY }}" \
-# -d "{
-#   "model": "gpt-4",
-#   "messages": [
-#     { "role": "system", "content": "Create code review" },
-#     { "role": "user", "content": $escaped_code }
-#   ]
-# }")
-
-# ------------------------------------------
-
-# name: WF2
-# on:
-#   pull_request:
-#     types: [opened, edited, reopened, synchronize]
-#     branches:
-#       - main
-# jobs:
-#   code-review:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Get repo code
-#         uses: actions/checkout@v4
-#       - name: Install dependencies
-#         run: npm ci
-#       - name: Build app
-#         run: npm run build
-#       - name: Upload Artifact
-#         uses: actions/upload-artifact@v4
-#         with:
-#           path: build
-#           name: build-files
-#       - name: Download Artifact
-#         uses: actions/download-artifact@v4
-#         with:
-#           name: build-files
-#       - name: 'Print build-files artifact:'
-#         run: |
-#           echo "Contents of build-files artifact:"
-#           ls -l
-#       - name: Print github
-#         run: |
-#           echo github.event.pull_request:
-#           echo '${{ toJSON(github.event.pull_request) }}'
-
-# ------------------------------------------
-
-# echo '${{ toJSON(github.event.pull_request) }}'
-
-# - name: Send build-files to GPT for Review
-#   run: node codeReviewHandler.js
-#   env:
-#     OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
