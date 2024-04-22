@@ -30,7 +30,7 @@ jobs:
 
           response=$(curl -X POST https://api.openai.com/v1/chat/completions \
           -H "Content-Type: application/json" \
-          -H "Authorization: Bearer \${{ secrets.OPENAI_API_KEY }}" \
+          -H "Authorization: Bearer ${{ secrets.OPENAI_API_KEY }}"
           -d @- << EOF
           {
             "model": "gpt-4",
