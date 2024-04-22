@@ -63,7 +63,7 @@ jobs:
           echo "comment_on_review ------->" $comment_on_review
 
           echo 'Extracted rating 1 --->' $comment_on_review
-          echo 'Extracted rating 2 --->' $comment_on_review:0:13
+          echo 'Extracted rating 2 --->' ${comment_on_review:0:13}
 
       # - name: Rating result
       #   run: |
