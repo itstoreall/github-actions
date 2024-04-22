@@ -36,7 +36,8 @@ jobs:
             \"model\": \"gpt-4-turbo-preview\",
             \"messages\": [
               { \"role\": \"system\", \"content\": \"Analyze the given code for code smells and suggest improvements.\" },
-              { \"role\": \"user\", \"content\": $escaped_code }
+              { \"role\": \"user\", \"content\": $changed_code }
+              # { \"role\": \"user\", \"content\": $escaped_code }
             ]
           }")
 
