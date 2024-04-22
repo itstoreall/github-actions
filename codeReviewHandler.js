@@ -1,14 +1,13 @@
-const fs = require('fs').promises; // Use fs promises for easier async handling
-const path = require('path');
+// const fs = require('fs').promises;
+// const path = require('path');
 const axios = require('axios');
 const sendToGPTForReview = require('./sendToGPTForReview');
 
 (async function codeReviewHandler() {
+  /*
   const args = process.argv.slice(2);
   console.log(`codeReviewHandler args ------>`, args);
-
   const directoryName = args[0];
-
   try {
     const directoryPath = path.resolve(directoryName);
     console.log(`Reading directory ------> ${directoryPath}`);
@@ -18,6 +17,7 @@ const sendToGPTForReview = require('./sendToGPTForReview');
   } catch (e) {
     console.error('Error reading directory:', e);
   }
+  */
 
   // ------ Date
   const dateUkraine = new Intl.DateTimeFormat('en-US', {

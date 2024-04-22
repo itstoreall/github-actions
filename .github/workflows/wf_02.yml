@@ -33,6 +33,7 @@ jobs:
         run: |
           echo Review
           echo Done!
+          echo github ---> ${{ github }}
 
   # ------------------------------------------
 
