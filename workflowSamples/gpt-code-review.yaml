@@ -17,19 +17,20 @@ jobs:
       - uses: GrantBirki/git-diff-action@v2
         id: git-diff-action
         with:
-          json_diff_file_output: diff.json
+          # json_diff_file_output: diff.json
           raw_diff_file_output: diff.txt
           file_output_only: 'true'
 
       - name: Perform GPT review
         id: code_review_suggestions
         run: |
-          # Get the code changes
           changed_code=$(cat ${{ steps.git-diff-action.outputs.raw-diff-path }})
           echo "PR change: $changed_code"
-          escaped_code=$(echo $changed_code | jq -s -R -r @json)
+          code_changes=$(echo $changed_code | jq -s -R -r @json)
+          gpt_prompt=$(echo "Analyze the given code and suggest improvements briefly. Rate this code on a scale of 1 to 10, where 1 is terrible and 10 is excellent. Start your response with the line: 'Rating: [your rate value]/10'" | jq -s -R -r @json)
 
-          echo "escaped_code --->" $escaped_code
+          # echo "code_changes --->" $code_changes
+          # echo "gpt_prompt --->" $gpt_prompt
 
           response=$(curl https://api.openai.com/v1/chat/completions \
           -H "Content-Type: application/json" \
@@ -37,28 +38,42 @@ jobs:
           -d "{
             \"model\": \"gpt-4-turbo-preview\",
             \"messages\": [
-              { \"role\": \"system\", \"content\": \"Analyze the given code for code smells and suggest improvements.\" },
-              { \"role\": \"user\", \"content\": $escaped_code }
+              { \"role\": \"system\", \"content\": $gpt_prompt },
+              { \"role\": \"user\", \"content\": $code_changes }
             ]
           }")
 
-          # echo Response $response
           code_review_suggestions=$(echo "$response" | jq -r '.choices[0].message.content')
           echo "$code_review_suggestions" > code_suggestions.txt
 
       - name: Add a comment
         run: |
           cat code_suggestions.txt
-          escaped_comments=$(echo "$(cat code_suggestions.txt)" | jq -s -R -r @json)
-          curl -L \
+          comment_on_code_changes=$(echo "$(cat code_suggestions.txt)" | jq -s -R -r @json)
+
+          comment=$(curl -L \
             -X POST \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.number }}/comments" \
-            -d "{\"body\": $escaped_comments}"
+            -d "{\"body\": $comment_on_code_changes}")
+
+          comment_on_review=$(echo "$comment" | jq -r '.body')
+          # echo "comment_on_review ------->" $comment_on_review
+
+          rating=$(echo "$comment_on_review" | grep -o -P 'Rating: \K[0-9]+(?=/10)')
+
+          if [ "$rating" -le 2 ]; then
+            echo "Rating is $rating/10, which is considered as failure."
+            exit 1
+          elif [ "$rating" -ge 3 ]; then
+            echo "Rating is $rating/10 (success)"
+          else
+            echo "Rating is $rating/10 (failed)"
+          fi
+            echo The Action is Done!!!
 
 # ------------------------------------------
 
-# \"Please create a review for these snippets or lines of React code\"
-# prompt="Analyze the given code and suggest improvements. Rate this code on a scale of 1 to 10, where 1 is terrible and 10 is excellent."
+# echo 'Extracted rating 1 --->' ${comment_on_review:0:13}
