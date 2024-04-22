@@ -44,8 +44,8 @@ jobs:
           code_review_suggestions=$(echo "$response" | jq -r '.choices[0].message.content')
 
           echo 111 $code_review_suggestions
-          echo "$code_review_suggestions" > code_suggestions.txt
-          echo 222
+          $code_review_suggestions > code_suggestions.txt
+          echo 222 code_suggestions.txt
 
       # - name: Add a comment
       #   run: |
