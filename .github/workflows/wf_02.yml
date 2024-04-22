@@ -32,14 +32,15 @@ jobs:
           -H "Content-Type: application/json" \
           -H "Authorization: Bearer ${{ secrets.OPENAI_API_KEY }}" \
           -d "{
-            \"model\": \"gpt-4\",
+            \"model\": \"gpt-4-turbo-preview\",
             \"messages\": [
               { \"role\": \"system\", \"content\": \"Please create a review for these snippets of React code\" },
               { \"role\": \"user\", \"content\": $escaped_code }
             ]
           }")
 
-          echo Response $response
+          echo Response '${{ toJSON('$response') }}'
+          # echo Response $response
 
           code_review_suggestions=$(echo "$response" | jq -r '.choices[0].message.content')
 
