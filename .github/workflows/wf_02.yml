@@ -51,7 +51,9 @@ jobs:
         run: |
           cat code_suggestions.txt
 
-      #     escaped_comments=$(echo "$(cat code_suggestions.txt)" | jq -s -R -r @json)
+          escaped_comments=$(echo "$(cat code_suggestions.txt)" | jq -s -R -r @json)
+
+          echo 'escaped_comments --->' $escaped_comments
 
       #     curl -L \
       #       -X POST \
