@@ -62,46 +62,18 @@ jobs:
           comment_on_review=$(echo "$comment" | jq -r '.body')
           echo "comment_on_review ------->" $comment_on_review
 
-          echo 'Extracted rating 1 --->' ${comment_on_review:0:13}
-
           rating=$(echo "$comment_on_review" | grep -o -P 'Rating: \K[0-9]+(?=/10)')
 
-          echo 'Extracted rating 2 --->' $rating
-
           if [ "$rating" -le 2 ]; then
-          echo "Rating is $rating/10, which is considered as failure."
-          exit 1
+            echo "Rating is $rating/10, which is considered as failure."
+            exit 1
           elif [ "$rating" -ge 3 ]; then
-            echo "Rating is $rating/10, proceeding with success."
+            echo "Rating is $rating/10 (success)"
           else
-            echo "Unexpected rating value, proceeding with caution."
+            echo "Rating is $rating/10 (failed)"
           fi
-            echo Done!!!
-
-      # - name: Rating result
-      # run: |
-      #   # rating=$(echo "$comment_on_review" | grep -o -P 'Rating: \K[0-9]+(?=/10)')
-      #   # rating=$(echo "$comment_on_review" | grep -o -P 'Rating:')
-
-      #   # echo 'Extracted rating 1 --->' $comment_on_review
-      #   # echo 'Extracted rating 2 --->' $comment_on_review:0:13
-      #   # echo 'Extracted rating --->' $rating
-
-      #   # # Conditional check to determine the workflow outcome
-      #   # if [ "$rating" -le 2 ]; then
-      #   #   echo "Rating is $rating/10, which is considered as failure."
-      #   #   exit 1
-      #   # elif [ "$rating" -ge 3 ]; then
-      #   #   echo "Rating is $rating/10, proceeding with success."
-      #   # else
-      #   #   echo "Unexpected rating value, proceeding with caution."
-
-      # - name: Check condition and possibly fail
-      #   run: |
-      #     if [[ $CONDITION == 'true' ]]; then
-      #       echo "Condition met, failing the workflow"
-      #       exit 1
-      #     else
-      #       echo "Condition not met, continuing"
+            echo The Action is Done!!!
 
 # ------------------------------------------
+
+# echo 'Extracted rating 1 --->' ${comment_on_review:0:13}
