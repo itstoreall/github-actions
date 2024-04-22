@@ -59,7 +59,7 @@ jobs:
             "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.number }}/comments" \
             -d "{\"body\": $comment_on_code_changes}")
 
-          comment_on_review=$(echo $comment | jq -s -R -r @json)
+          comment_on_review=$(echo "$comment" | jq -r '.body')
           echo "comment_on_review ------->" $comment_on_review
 
       # - name: Check condition and possibly fail
