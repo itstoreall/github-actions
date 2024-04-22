@@ -1,15 +1,12 @@
-// import { codeReviewHandler } from './codeReviewHandler';
 import { useEffect } from 'react';
 import './App.css';
 
 const App = () => {
-  // console.log('App', codeReviewHandler());
-
-  const title = 'Github Actions 114';
+  const title = 'Github Actions 115';
 
   useEffect(() => {
     console.log('App:', title);
-  }, []);
+  }, [title]);
 
   return (
     <div className='App'>
@@ -19,3 +16,8 @@ const App = () => {
 };
 
 export default App;
+
+/*
+import { codeReviewHandler } from './codeReviewHandler';
+console.log('App', codeReviewHandler());
+*/
