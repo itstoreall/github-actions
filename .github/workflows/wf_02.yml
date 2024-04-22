@@ -39,7 +39,7 @@ jobs:
             ]
           }")
 
-          echo Response: $response
+          echo Response: $response.choices[0].message.content
 
 # ------------------------------------------
 
