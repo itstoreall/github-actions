@@ -61,3 +61,4 @@ jobs:
 # ------------------------------------------
 
 # \"Please create a review for these snippets or lines of React code\"
+# prompt="Analyze the given code and suggest improvements. Rate this code on a scale of 1 to 10, where 1 is terrible and 10 is excellent."
