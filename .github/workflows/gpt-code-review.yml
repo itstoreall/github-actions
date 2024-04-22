@@ -27,7 +27,7 @@ jobs:
           changed_code=$(cat ${{ steps.git-diff-action.outputs.raw-diff-path }})
           echo "PR change: $changed_code"
           code_changes=$(echo $changed_code | jq -s -R -r @json)
-          gpt_prompt=$(echo "Analyze the given code and suggest improvements briefly. Rate this code on a scale of 1 to 10, where 1 is terrible and 10 is excellent." | jq -s -R -r @json)
+          gpt_prompt=$(echo "Analyze the given code and suggest improvements briefly. Rate this code on a scale of 1 to 10, where 1 is terrible and 10 is excellent. Start your response with the line: 'Rating: [your rate value]/10'" | jq -s -R -r @json)
 
           # echo "code_changes --->" $code_changes
           # echo "gpt_prompt --->" $gpt_prompt
@@ -59,7 +59,7 @@ jobs:
             "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.number }}/comments" \
             -d "{\"body\": $comment_on_code_changes}")
 
-          echo "comment ------->" $comment
+          echo "comment ------->" $comment.body
 
       # - name: Check condition and possibly fail
       #   run: |
