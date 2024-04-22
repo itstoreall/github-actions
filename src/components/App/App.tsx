@@ -5,7 +5,7 @@ const App = () => {
   console.log('App');
   // console.log('App', codeReviewHandler());
 
-  const title = 'Github Actions 106';
+  const title = 'Github Actions 107';
 
   return (
     <div className='App'>
