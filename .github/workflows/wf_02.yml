@@ -20,6 +20,7 @@ jobs:
           json_diff_file_output: diff.json
           raw_diff_file_output: diff.txt
           file_output_only: 'true'
+
       - name: Perform GPT review
         id: code_review_suggestions
         run: |
@@ -34,7 +35,7 @@ jobs:
           -d "{
             \"model\": \"gpt-4-turbo-preview\",
             \"messages\": [
-              { \"role\": \"system\", \"content\": \"Please create a review for these snippets or lines of React code\" },
+              { \"role\": \"system\", \"content\": \"\" },
               { \"role\": \"user\", \"content\": $escaped_code }
             ]
           }")
@@ -57,3 +58,4 @@ jobs:
 
 # ------------------------------------------
 
+# \"Please create a review for these snippets or lines of React code\"
