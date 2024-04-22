@@ -39,11 +39,13 @@ jobs:
             ]
           }")
 
-          # echo Response: $response.choices[0].message.content
+          echo Response ------> $response.choices[0].message.content
 
           code_review_suggestion=$(echo "$response" | jq -r '.choices[0].message.content')
 
+          echo 111
           echo "$code_review_suggestion" > code_suggestion.txt
+          echo 222
 
 # ------------------------------------------
 
