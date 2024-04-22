@@ -10,7 +10,7 @@ const sendToGPTForReview = require('./sendToGPTForReview');
   const directoryName = args[0];
 
   try {
-    const directoryPath = path.resolve(`/build/${directoryName}`);
+    const directoryPath = path.resolve(directoryName);
     console.log(`Reading directory ------> ${directoryPath}`);
 
     const files = await fs.readdir(directoryPath);
@@ -44,3 +44,8 @@ const sendToGPTForReview = require('./sendToGPTForReview');
 
   sendToGPTForReview();
 })();
+
+/*
+Artifact download URL: 
+https://github.com/itstoreall/github-actions/actions/runs/8773113196/artifacts/1433268642
+*/
