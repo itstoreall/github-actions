@@ -43,13 +43,13 @@ jobs:
 
           code_review_suggestions=$(echo "$response" | jq -r '.choices[0].message.content')
 
-          echo "response.message.content:" $code_review_suggestions
-          echo "$code_review_suggestions" > code_suggestions.txt
-          echo 222
+          echo "response.message.content --->" $code_review_suggestions
 
-      # - name: Add a comment
-      #   run: |
-      #     cat code_suggestions.txt
+          echo "$code_review_suggestions" > code_suggestions.txt
+
+      - name: Add a comment
+        run: |
+          cat code_suggestions.txt
 
       #     escaped_comments=$(echo "$(cat code_suggestions.txt)" | jq -s -R -r @json)
 
