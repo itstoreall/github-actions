@@ -1,20 +1,32 @@
-name: Code Review
-
-permissions:
-  contents: read
-  pull-requests: write
-
+name: GPT Code Review
 on:
   pull_request:
-  pull_request_review_comment:
-    types: [created]
-
+    types: [opened, edited, reopened, synchronize]
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
 jobs:
-  review:
+  code-review:
     runs-on: ubuntu-latest
     steps:
-      - name: Print github
-        run: echo 111
+      - name: Get repo code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: GrantBirki/git-diff-action@v2
+        id: git-diff-action
+        with:
+          # json_diff_file_output: diff.json
+          raw_diff_file_output: diff.txt
+          file_output_only: 'true'
+      - name: Perform GPT review
+        id: code_review_suggestions
+        run: |
+          # Get the code changes
+          changed_code=$(cat ${{ steps.git-diff-action.outputs.raw-diff-path }})
+          echo "PR change: $changed_code
+
 # ------------------------------------------
 
 # name: WF2
@@ -28,7 +40,7 @@ jobs:
 #     runs-on: ubuntu-latest
 #     steps:
 #       - name: Get repo code
-#         uses: actions/checkout@v3
+#         uses: actions/checkout@v4
 #       - name: Install dependencies
 #         run: npm ci
 #       - name: Build app
