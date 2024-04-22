@@ -15,7 +15,7 @@ jobs:
         with:
           fetch-depth: 0
       - uses: GrantBirki/git-diff-action@v2
-        id: git-diff
+        id: git-diff-action
         with:
           json_diff_file_output: diff.json
           raw_diff_file_output: diff.txt
@@ -24,7 +24,7 @@ jobs:
         id: code_review_suggestions
         run: |
           # Get the code changes
-          changed_code=$(cat ${{ steps.git-diff.outputs.raw-diff-path }})
+          changed_code=$(cat ${{ steps.git-diff-action.outputs.raw-diff-path }})
           echo "PR change: $changed_code"
           escaped_code=$(echo $changed_files | jq -s -R -r @json)
 
@@ -39,7 +39,8 @@ jobs:
             ]
           }")
 
-          echo "Response ---> $response"
+          echo Response
+          echo $response
 
 # ------------------------------------------
 
